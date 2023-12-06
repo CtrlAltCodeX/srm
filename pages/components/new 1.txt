@@ -1,0 +1,401 @@
+<div class="modal fade bs-example-modal-lg" id="AUDITMODAL" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="form-content">
+				<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="AUDITMODALLabel"></h4>
+					</div>
+					<div class="modal-body">
+						<form role="form" method="POST" action="" id="auditidformall">
+						<div class="form-group">
+							<div class="box box-primary">
+						 <div class="box-header">
+						 <h3 class="box-title">Audit Details</h3> 
+						 </div>
+						 <div class="box-body" >
+							<div class="form-group">
+								<label>AUDIT ID:</label>
+								<input class="form-control"   id="auditidall" type="text" disabled=""></input>	
+							</div>
+							<div class="form-group">
+									<label>
+									  <input type="radio" id="noncompall" value="noncompa" disabled="">Non Compliance
+									</label>
+									<label>
+									  <input type="radio" id="compall" value="comp"disabled="">Compliance
+									</label>
+									<label>
+									  <input type="radio" id="nonconfall"value="nonconf"disabled="">
+									  Non Conformance
+									</label>
+									<label>
+									<input type="radio" id="confall"value="conf"disabled="">
+									 Conformance
+									</label>
+									<label>
+									<input type="checkbox"  id="scall" value ="sc"disabled="">
+									 Safety Concern
+									</label>
+								  </div>
+							<div class="form-group">
+							   <label >Audit Type</label>
+									<select class="form-control select2" style="width: 100%;" id="atall" disabled="">                  
+										<option>Manual/SOP Review</option>
+										<option>National Legislation Review</option>
+										<option>On-site Inspection</option>
+										<option>Interview </option> 
+										<option>Group discussion</option> 
+										<option>Observation</option> 
+										<option>Assessment of Department logs/records/reports</option>
+																
+									</select></div>
+                            <div class="form-group">
+                <label>Date of Audit :</label>
+
+                
+                  <input type="text"id="dateofoccall" disabled="">
+               
+                <!-- /.input group -->
+              </div>
+                            <div class="form-group">
+					<label>Select Airport Involved</label>
+						<select class="form-control" id="airportall"disabled="">
+							<?php
+			
+								include '../../dbconfig.php';
+								$query = "SELECT * FROM airport";
+								mysqli_query($db, $query) or die('Error querying database.');
+								$result = mysqli_query($db, $query);								
+								
+								while ($row = mysqli_fetch_array($result)) 
+								{	
+									echo "<option>".$row['airport']."</option>";
+									
+								}
+								mysqli_close($db);
+									
+							?>	
+				
+						</select>
+               
+			    </div>
+				            <div class="form-group">
+				<label >Risk Level</label>
+					<select class="form-control select2" style="width: 100%; " id="rlall"disabled="">                  
+						<option>High Risk</option>
+						<option>Medium Risk</option>
+						<option>Low Risk</option>															  
+					</select></div>
+                <!-- Hazard icident description-->
+							<div class="form-group">
+                  <label>Audit Objective</label>
+                  <textarea class="form-control" rows="5"  id="auditobjall"disabled=""></textarea>
+                </div>
+				
+							<div class="form-group">
+                  <label>Test Step</label>
+                  <textarea class="form-control" rows="3"  id="teststepall"disabled=""></textarea>
+                </div>
+							<div class="form-group">
+                  <label>Source Data</label>
+                  <textarea class="form-control" rows="3"  id="sourcedataall"disabled=""></textarea>
+                </div>
+				
+							<h2>FINDINGS</h2>
+							<div class="form-group">
+                  <label>Condition (What is in place ?</label>
+                  <textarea class="form-control" rows="3"  id="conditionall"disabled=""></textarea>
+                </div>
+				
+							<div class="form-group">
+                  <label>Criteria (What should be ?)</label>
+                  <textarea class="form-control" rows="3"  id="criteriaall"disabled=""></textarea>
+                </div>
+				
+							<div class="form-group">
+                  <label>Effect (So what?/Consequences/result)</label>
+                  <textarea class="form-control" rows="3"  id="effectall"disabled=""></textarea>
+                </div>
+				
+							<div class="form-group">
+                  <label>Cause (Why the condition exists?/Source?)</label>
+                  <textarea class="form-control" rows="3"  id="causeall"disabled=""></textarea>
+                </div>
+				
+							<div class="form-group">
+				<h2>RECOMMENDATION(How to make it better?)</h2>
+				<textarea class="form-control" rows="3"  id="recommendationall"disabled=""></textarea></div>
+							<div class="form-group">
+				<label >Manager responsible</label>
+								<select class="form-control select2" style="width: 100%; " id="riskownerall"disabled="">
+									  <?php
+			
+								include '../../dbconfig.php';
+								$query = "SELECT * FROM riskowners";
+								mysqli_query($db, $query) or die('Error querying database.');
+								$result = mysqli_query($db, $query);								
+								
+								while ($row = mysqli_fetch_array($result)) 
+								{	
+									echo "<option>".$row['RISKOWNER']."</option>";
+									
+								}
+								mysqli_close($db);
+									
+							?>                 
+								</select></div>
+				
+				
+							<div class="form-group">
+                  <label>Auditor Details</label>
+				  <input class="form-control"  id="qasoall" type="text" disabled=""></input>
+                  <input class="form-control"  id="usernameall" type="text" disabled=""></input>
+				  <input class="form-control"  id="useremailall" type="text" disabled=""></input>
+				  <input class="form-control"  id="userphoneall" type="text" disabled=""></input>
+                </div></div></div>
+						    <div class="box box-info">
+							<div class="box-header">
+								<h3 class="box-title">Update History</h3> 
+								<input  type="hidden" class="form-control" id="IDum" disabled=""> 
+							</div>
+            <!-- /.box-header -->
+							<div class="box-body table-responsive no-padding" id="outputupdateaudit">
+								<table class="table table-bordered table-hover" id="updateupdateauditall" >
+								</table>
+						</div>
+            <!-- /.box-body -->
+						 </div>
+						    <div class="box box-primary">
+										<div class="box-header">
+										<h3 class="box-title">Insert your update here...</h3>
+										</div>
+										
+										<div class="box-body" id="updateresetaudit">
+											<!-- <label>Update Content</label> -->
+											
+											<textarea class="form-control" rows="3" placeholder="Enter Update..." id="updatecontentauditall"></textarea>
+											<input class="form-control" type="text" placeholder="Name" id="updateuserauditall">
+											<div><label><input type="checkbox" class="flat-red" id="statusauditall">To be Closed(Check if you are closing this item, leave it unchecked if you are just updating)</label></div>
+											<div class="form-group">
+												<label for="exampleInputFile">Evidence Upload</label>
+												<input type="file" id="exampleInputFileauditall">
+												<p class="help-block">Upload evidence here. Ensure filename does not have spaces</p>
+											</div>
+
+											
+										</div>
+										
+										
+									</div>
+							<div class="box box-danger">
+							<div class="box-header">
+							
+							</div>
+							
+							<div class="box-body" id="updateresetauditall">
+								<!-- <label>Update Content</label> -->
+								
+								<div class="form-group">
+                <label>Target Date:</label>
+
+                <div class="input-group date" >
+                  <div class="input-group-addon" >
+                    <i class="fa fa-calendar" ></i>
+                  </div>
+                  <input type="text" class="form-control pull-right" id="datepicker27all" disabled="">
+                </div>
+                <!-- /.input group -->
+              </div>
+								
+							</div>
+							
+							
+					    </div>
+						</div>
+				
+				
+						</form>
+				
+				   
+				    </div>
+				    <div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary" onclick="updateauditall()" >Update</button>	
+												
+					</div>
+				</div>
+				</div>
+			</div>
+		 
+		 
+		 $('#AUDITMODAL').on('show.bs.modal', function (event) {
+	
+	
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  
+  $('#datepicker27all').datepicker({
+      autoclose: true
+    });
+	
+	$('#updateupdateauditall').empty();
+  var ID = button.data('id') 
+  var comp = button.data('comp')
+  var noncomp = button.data('noncomp')
+  var conf = button.data('conf')
+  var nonconf = button.data('nonconf')
+  var sc = button.data('sc')
+  var at = button.data('at')
+  var date = button.data('date')
+  var airport = button.data('airport')
+  var risklevel = button.data('risklevel')
+  var auditobj = button.data('auditobj')
+  var ts = button.data('ts')
+  var sd = button.data('sd')
+  var cp = button.data('cp')
+  var criteria = button.data('criteria')
+  var effect = button.data('effect')
+  var cause = button.data('cause')
+  var rec = button.data('rec')
+  var ro = button.data('ro')
+  var auditor = button.data('auditor')
+  var auditore = button.data('auditore')
+  var auditorp = button.data('auditorp')
+  var dr = button.data('dr')
+  var tg = button.data('tg')
+  var lu = button.data('lu')
+  var qaso = button.data('qaso')
+
+  if(comp == "1")
+  {
+	  $("#compall").prop("checked", true)
+	 
+  }else if(noncomp == "1")
+  {
+	  $("#noncompall").prop("checked", true)
+	  
+  }
+  
+  if(conf == "1")
+  {
+	  $("#confall").prop("checked", true)
+	 
+  }else if(nonconf == "1")
+  {
+	  $("#nonconfall").prop("checked", true)
+	  
+  }
+  
+  if(sc == "1")
+  {
+	  $("#scall").prop("checked", true)
+	 
+  }
+ 
+  
+    
+  var modal = $(this)
+  modal.find('.modal-title').text('More details for compliance ID : ' + ID)
+  modal.find('.modal-body #auditidall').val(ID)
+  modal.find('.modal-body #atall').val(at)
+  
+  modal.find('.modal-body #dateofoccall').val(date)
+  modal.find('.modal-body #airportall').val(airport)
+  modal.find('.modal-body #rlall').val(risklevel)
+  modal.find('.modal-body #auditobjall').val(auditobj)
+  modal.find('.modal-body #teststepall').val(ts)
+  modal.find('.modal-body #sourcedataall').val(sd)
+  
+  modal.find('.modal-body #conditionall').val(cp)
+  modal.find('.modal-body #criteriaall').val(criteria) 
+  
+  modal.find('.modal-body #effectall').val(effect)
+  modal.find('.modal-body #causeall').val(cause) 
+  
+  modal.find('.modal-body #recommendationall').val(rec)
+  modal.find('.modal-body #riskownerall').val(ro) 
+  modal.find('.modal-body #qasov').val(qaso) 
+   modal.find('.modal-body #usernameall').val(auditor) 
+  
+  modal.find('.modal-body #useremailall').val(auditore)
+  modal.find('.modal-body #userphoneall').val(auditorp)
+  
+  
+/* var lol = new Date(Date.parse(tg.replace('-','/','g')));
+modal.find('.modal-body #datepicker27all').val(lol)   */
+
+
+  
+   var dataString = 'id=' + ID; 
+	
+// AJAX code to submit form.
+	$.ajax({
+		type: "POST",
+		url: "../dbfiles/processupdateaudit.php",
+		data: dataString,
+		cache: false,		
+		 dataType: 'json', 
+		
+		success: function(html) 
+		{      
+		            
+					console.log (html);
+					/* var title=html[0];  */
+
+					var len = html.length;
+					
+					var tr_strone = "<thead><tr>"+
+                  "<th>ID</th>"+
+                  "<th > <nobr>Update Date</nobr></th>"+
+                  "<th>Update Content</th>"+
+                  "<th>Person</th>"+
+                  "<th>Evidence</th>"+                  
+                "</tr></thead><tbody>";
+
+                $("#updateupdateauditall").append(tr_strone);
+               for(var i=0; i<len; i++)
+			   {
+                var aid = html[i].aid;
+				var updatedate = html[i].updatedate; 
+				var updatecontent = html[i].updatecontent; 
+				var person = html[i].person; 
+                var link = html[i].link; 				
+				
+
+                var tr_str = "<tr>" +
+                    "<td >" + aid + "</td>"+
+					"<td >" + updatedate + "</td>"+
+					"<td >" + updatecontent + "</td>"+
+					"<td >" + person + "</td>"+
+					"<td >" + link + "</td>"+
+					"</tr>";
+
+                $("#updateupdateauditall").append(tr_str);
+				}
+				var tr_strqw = "</tbody><tfoot><tr>"+
+                  "<th >ID</th>"+
+                  "<th >Update Date</th>"+
+                  "<th>Update Content</th>"+
+                  "<th>Person</th>"+
+					"<th>Evidence</th>"+ 
+                "</tr></tfoot><tbody>";
+
+                $("#updateupdateauditall").append(tr_strqw);
+					
+				
+
+					
+					
+					
+
+        },
+	   error: function (html) {
+		   console.log (html);
+                    
+                }
+});
+
+	$("#datepicker27").datepicker().on('show.bs.modal', function(event) {
+    // prevent datepicker from firing bootstrap modal "show.bs.modal"
+    event.stopPropagation(); 
+});
+})
