@@ -1,8 +1,4 @@
 <div class="box box-primary">
-
-
-
-
 	<div class="box-header">
 		<h3 class="box-title">New Hazard from SDA</h3>
 	</div>
@@ -13,8 +9,6 @@
 				<thead>
 					<tr>
 						<th>ID</th>
-
-
 						<th>Details</th>
 						<th>Transfer</th>
 					</tr>
@@ -22,7 +16,6 @@
 				<tbody>
 
 					<?php
-
 					include '../../dbconfig.php';
 					$query = "SELECT * FROM hazardreport  WHERE SDCCHECK='1' AND QASOCHECK='0' AND QASO='$pageuser'";
 					mysqli_query($db, $query) or die('Error querying database.');
@@ -36,16 +29,15 @@
 
 
 						echo "<td><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal' 
-							data-id='" . $row['HAZID'] . "'  data-hid='" . $row['HID'] . "'		
-							data-dreported='" . $row['DREPORTED'] . "' data-airport='" . $row['AIRPORT'] . "'data-riskowner='" . $row['RISKOWNER'] . "'>
-							View </button></td>";
+								data-id='" . $row['HAZID'] . "'  data-hid='" . $row['HID'] . "'		
+								data-dreported='" . $row['DREPORTED'] . "' data-airport='" . $row['AIRPORT'] . "'data-riskowner='" . $row['RISKOWNER'] . "'>
+								View </button></td>";
 						echo "<td><button type='button' class='btn btn-danger' data-toggle='modal' data-target='#exampleModalTransfer' 
-							data-id='" . $row['HAZID'] . "'  data-hid='" . $row['HID'] . "'	data-airport='" . $row['AIRPORT'] . "'>
-							Tranfers... </button></td>";
+								data-id='" . $row['HAZID'] . "'  data-hid='" . $row['HID'] . "'	data-airport='" . $row['AIRPORT'] . "'>
+								Tranfers... </button></td>";
 						echo "</tr>";
 					}
 					mysqli_close($db);
-
 					?>
 				</tbody>
 				<tfoot>
@@ -54,7 +46,6 @@
 			</table>
 		</div>
 	</div>
-	<!-- /.box-body -->
 </div>
 
 
@@ -121,8 +112,6 @@
 			</table>
 		</div>
 	</div>
-
-
 </div>
 
 <div class="box box-primary">
@@ -141,64 +130,52 @@
 					</tr>
 				</thead>
 				<tbody>
-
 					<?php
-
-					include '../../dbconfig.php';
-					$query = "SELECT * FROM mor WHERE CLOSEDRO='CLOSED' AND STATUS='OPEN' AND QASO='$pageuser'";
-					mysqli_query($db, $query) or die('Error querying database.');
-					$result = mysqli_query($db, $query);
-
-
-					while ($row = mysqli_fetch_array($result)) {
-
-						echo "<tr>";
-						echo "<td>" . $row['MORID'] . "</td>";
-
-						echo "<td>" . $row['CAAFID'] . "</td>";
+						include '../../dbconfig.php';
+						$query = "SELECT * FROM mor WHERE CLOSEDRO='CLOSED' AND STATUS='OPEN' AND QASO='$pageuser'";
+						mysqli_query($db, $query) or die('Error querying database.');
+						$result = mysqli_query($db, $query);
 
 
+						while ($row = mysqli_fetch_array($result)) {
 
-						echo "<td><button type='button' class='btn btn-danger' data-toggle='modal' data-target='#MORMODALQASO' 
-								data-id='" . $row['MORID'] . "'data-caafid='" . $row['CAAFID'] . "'data-catofoc='" . $row['CATOFOC'] . "'data-actype='" . $row['ACTYPE'] . "'data-reg='" . $row['REG'] . "'data-operator='" . $row['OPERATOR'] . "'
-								data-date='" . $row['DATE'] . "'data-time='" . $row['TIME'] . "'data-timetype='" . $row['TIMETYPE'] . "'data-loc_pos_rwy='" . $row['LOC_POS_RWY'] . "'data-fcr_flightno='" . $row['FCR_FLIGHTNO'] . "'
-								data-fcr_rf='" . $row['FCR_RF'] . "'data-fcr_rt='" . $row['FCR_RT'] . "'data-fcr_ias='" . $row['FCR_IAS'] . "' 
-								data-fcr_ft='" . $row['FCR_FT'] . "'data-fcr_clearance='" . $row['FCR_CLEARANCE'] . "'data-etops='" . $row['ETOPS'] . "'
-								data-nature_flight='" . $row['NATURE_FLIGHT'] . "'data-flight_phase='" . $row['FLIGHT_PHASE'] . "'data-env_w_kts='" . $row['ENV_W_KTS'] . "'
-								data-env_w_oc='" . $row['ENV_W_OC'] . "'data-env_c_type='" . $row['ENV_C_TYPE'] . "'data-env_c_ft='" . $row['ENV_C_FT'] . "'
-								data-env_c_th='" . $row['ENV_C_TH'] . "'data-env_p_w='" . $row['ENV_P_W'] . "'data-env_p_l='" . $row['ENV_P_L'] . "'
-								data-omc_v='" . $row['OMC_V'] . "'data-omc_icing='" . $row['OMC_ICING'] . "'data-omc_turb='" . $row['OMC_TURB'] . "'
-								data-rs_status='" . $row['RS_STATUS'] . "'data-rs_cat='" . $row['RS_CAT'] . "'data-airport='" . $row['AIRPORT'] . "'
-								data-relatedto='" . $row['RELATEDTO'] . "'data-title='" . $row['TITLE'] . "'data-narrative='" . $row['NARRATIVE'] . "'
-								data-reporter_org='" . $row['REPORTER_ORG'] . "'data-reporter_name='" . $row['REPORTER_NAME'] . "'data-reporter_position='" . $row['REPORTER_POSITION'] . "'
-								data-lastupdate='" . $row['LASTUPDATE'] . "'data-receiveddate='" . $row['RECEIVEDDATE'] . "'data-riskowner='" . $row['RISKOWNER'] . "'>View </button></td>";
+							echo "<tr>";
+							echo "<td>" . $row['MORID'] . "</td>";
 
+							echo "<td>" . $row['CAAFID'] . "</td>";
 
+							echo "<td><button type='button' class='btn btn-danger' data-toggle='modal' data-target='#MORMODALQASO' 
+										data-id='" . $row['MORID'] . "'data-caafid='" . $row['CAAFID'] . "'data-catofoc='" . $row['CATOFOC'] . "'data-actype='" . $row['ACTYPE'] . "'data-reg='" . $row['REG'] . "'data-operator='" . $row['OPERATOR'] . "'
+										data-date='" . $row['DATE'] . "'data-time='" . $row['TIME'] . "'data-timetype='" . $row['TIMETYPE'] . "'data-loc_pos_rwy='" . $row['LOC_POS_RWY'] . "'data-fcr_flightno='" . $row['FCR_FLIGHTNO'] . "'
+										data-fcr_rf='" . $row['FCR_RF'] . "'data-fcr_rt='" . $row['FCR_RT'] . "'data-fcr_ias='" . $row['FCR_IAS'] . "' 
+										data-fcr_ft='" . $row['FCR_FT'] . "'data-fcr_clearance='" . $row['FCR_CLEARANCE'] . "'data-etops='" . $row['ETOPS'] . "'
+										data-nature_flight='" . $row['NATURE_FLIGHT'] . "'data-flight_phase='" . $row['FLIGHT_PHASE'] . "'data-env_w_kts='" . $row['ENV_W_KTS'] . "'
+										data-env_w_oc='" . $row['ENV_W_OC'] . "'data-env_c_type='" . $row['ENV_C_TYPE'] . "'data-env_c_ft='" . $row['ENV_C_FT'] . "'
+										data-env_c_th='" . $row['ENV_C_TH'] . "'data-env_p_w='" . $row['ENV_P_W'] . "'data-env_p_l='" . $row['ENV_P_L'] . "'
+										data-omc_v='" . $row['OMC_V'] . "'data-omc_icing='" . $row['OMC_ICING'] . "'data-omc_turb='" . $row['OMC_TURB'] . "'
+										data-rs_status='" . $row['RS_STATUS'] . "'data-rs_cat='" . $row['RS_CAT'] . "'data-airport='" . $row['AIRPORT'] . "'
+										data-relatedto='" . $row['RELATEDTO'] . "'data-title='" . $row['TITLE'] . "'data-narrative='" . $row['NARRATIVE'] . "'
+										data-reporter_org='" . $row['REPORTER_ORG'] . "'data-reporter_name='" . $row['REPORTER_NAME'] . "'data-reporter_position='" . $row['REPORTER_POSITION'] . "'
+										data-lastupdate='" . $row['LASTUPDATE'] . "'data-receiveddate='" . $row['RECEIVEDDATE'] . "'data-riskowner='" . $row['RISKOWNER'] . "'>View </button></td>";
 
-						echo "</tr>";
-					}
-					mysqli_close($db);
-
+							echo "</tr>";
+						}
+						mysqli_close($db);
 					?>
 				</tbody>
 				<tfoot>
 					<tr>
 						<th>ID</th>
 						<th>CAAFID</th>
-
 						<th>Details</th>
-
 					</tr>
 				</tfoot>
 			</table>
 		</div>
 	</div>
-
-
 </div>
 
 <!--MODAL FOR MORE ON THIS-->
-
 <div class="box box-primary">
 	<div class="box-header">
 		<h3 class="box-title">Manager Audit Closure Submissions</h3>
@@ -206,92 +183,52 @@
 
 	<div class="box-body" id="tablediv">
 		<div class="table-responsive">
-			<table id="example66" class="table table-bordered table-striped">
+			<table id="example2" class="table table-bordered table-striped">
 				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Audit Type</th>
+						<th>Date of Audit</th>
+						<th>View</th>
+						<th>Update</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+						include '../../dbconfig.php';
+						$query = "SELECT DISTINCT(AID),AUDIT_TYPE, DATE
+								FROM audit,recommendations  WHERE  audit.AID=recommendations.ID  AND audit.QASO='$pageuser' AND recommendations.STATUS='CLOSED' AND audit.STATUS='OPEN' GROUP BY AID";
+						mysqli_query($db, $query) or die(mysqli_error($db));
+						$result = mysqli_query($db, $query);
+
+						while ($row = mysqli_fetch_array($result)) {
+
+							echo "<tr>";
+							echo "<td>" . $row['AID'] . "</td>";
+							echo "<td>" . $row['AUDIT_TYPE'] . "</td>";
+							echo "<td>" . $row['DATE'] . "</td>";
+							echo "<td><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#AUDITMODAL' data-id='" . $row['AID'] . "'data-ro='" . $pageuser . "'>View </button></td>";
+
+							echo "<td><button type='button' class='btn btn-success approve' data-toggle='modal' data-target='#UPDATEAUDIT' data-id='" . $row['AID'] . "'data-ro='" . $pageuser . "'>Update</button></td>";
+
+							echo "</tr>";
+						}
+						mysqli_close($db);
+					?>
+				</tbody>
+				<tfoot>
 					<tr>
 						<th>ID</th>
 						<th>Risk Level</th>
 						<th>Completion</th>
 						<th>Details</th>
 						<th>Update</th>
-						<th>Update Status</th>
 					</tr>
-				</thead>
-				<tbody>
-
-					<?php
-
-					include '../../dbconfig.php';
-					$query = "SELECT DISTINCT(AID),RISK_LEVEL, DATEDIFF(recommendations.TARGETDATE,CURDATE()) as DiffDate, DATEDIFF(CURDATE(),audit.LASTUPDATE) as LastUpdateDiff
-						FROM audit,recommendations  WHERE  audit.AID=recommendations.ID  AND audit.QASO='$pageuser' AND recommendations.STATUS='CLOSED'GROUP BY AID";
-					mysqli_query($db, $query) or die(mysqli_error($db));
-					$result = mysqli_query($db, $query);
-
-
-					while ($row = mysqli_fetch_array($result)) {
-
-						echo "<tr>";
-						echo "<td>" . $row['AID'] . "</td>";
-						$risk = $row['RISK_LEVEL'];
-
-						if ($risk == "High Risk") {
-							echo "<td bgcolor='#F03434'></td>";
-						} else if ($risk == "Medium Risk") {
-							echo "<td bgcolor='#FABE58'></td>";
-						} else {
-							echo "<td bgcolor='#00E640'></td>";
-						}
-
-						if ($row['DiffDate'] < 0) {
-							echo "<td bgcolor='#F03434'>Overdue by " . abs($row['DiffDate']) . " days</td>";
-						} else if ($row['DiffDate'] > 0 && $row['DiffDate'] < 30) {
-							echo "<td bgcolor='#FABE58'>" . $row['DiffDate'] . " days remaining</td>";
-						} else {
-							echo "<td bgcolor='#00E640'>" . $row['DiffDate'] . " days remaining</td>";
-						}
-						/*
-							if($LastUpdateDiffDate<0)
-							{
-									echo "<td>Overdue by ".abs($LastUpdateDiffDate)." days</td>";
-							}
-							else
-							{
-								echo "<td>".$LastUpdateDiffDate." days remaining</td>";
-							}	 */
-
-						/* echo "<td>".$row['DREPORTED']."</td>"; */
-						echo "<td><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#AUDITMODAL' 
-								data-id='" . $row['AID'] . "'data-ro='" . $pageuser . "'>View </button></td>";
-
-						echo "<td><button type='button' class='btn btn-success' data-toggle='modal' data-target='#UPDATEAUDIT' 
-								data-id='" . $row['AID'] . "'data-ro='" . $pageuser . "'>Update</button></td>";
-
-						$AUDITID = $row['AID'];
-
-						$LastUpdateDiffDate = 7 - $row['LastUpdateDiff'];
-
-						if ($LastUpdateDiffDate < 0) {
-							echo "<td bgcolor='#F03434'></td>";
-						} else {
-							echo "<td bgcolor='#00E640'></td>";
-						}
-
-
-						echo "</tr>";
-					}
-					mysqli_close($db);
-
-					?>
-				</tbody>
-				<tfoot>
-
 				</tfoot>
 			</table>
 		</div>
 	</div>
 </div>
-
-
 
 <div class="box box-primary">
 	<div class="box-header">
@@ -336,8 +273,6 @@
 							echo "<td bgcolor='#00E640'></td>";
 						}
 
-
-
 						if ($row['DiffDate'] < 0) {
 							echo "<td bgcolor='#F03434'>Overdue by " . abs($row['DiffDate']) . " days</td>";
 						} else if ($row['DiffDate'] > 0 && $row['DiffDate'] < 30) {
@@ -345,10 +280,6 @@
 						} else {
 							echo "<td bgcolor='#00E640'>" . $row['DiffDate'] . " days remaining</td>";
 						}
-
-
-
-
 
 						/*
 							if($LastUpdateDiffDate<0)
@@ -391,8 +322,6 @@
 		</div>
 	</div>
 </div>
-
-
 
 
 <div class="modal fade bs-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="form-content">
@@ -644,8 +573,6 @@
 				<button type="button" name="submit" id="submit" class="btn btn-primary" onclick="myFunction()">Send to Risk Owner</button>
 			</div>
 		</div>
-
-
 	</div>
 </div>
 </div>
@@ -700,22 +627,14 @@
 
 			</div>
 
-
-
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				<button type="button" class="btn bg-orange btn-flat" onclick="qasotransfer()">Transfer</button>
 
 			</div>
 		</div>
-
-
 	</div>
 </div>
-
-
-
-<!--/.col (right) -->
 </div>
 
 
@@ -1014,8 +933,6 @@
 	</div>
 </div>
 </div>
-
-<!-- /.row -->
 </section>
 
 <div class="modal fade bs-example-modal-lg" id="MORMODALQASO" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="form-content">
@@ -1734,10 +1651,6 @@
 	</div>
 </div>
 
-
-
-
-
 <div class="modal fade bs-example-modal-lg	" id="AUDITMODALUPDATE" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="form-content">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
@@ -1828,9 +1741,6 @@
 
 
 						</div>
-
-
-
 					</div>
 				</form>
 				<div class="modal-footer">
@@ -1856,64 +1766,20 @@
 				<form role="form" method="POST" action="" id="stuff">
 					<div class="col-md-12">
 
-						<input name="auditid" type="hidden" class="form-control" id="auditid" disabled="">
-						<div class="box box-primary">
-							<div class="box-header">
-								<h3 class="box-title">Audit Description</h3>
-
-							</div>
-
-							<div class="box-body table-responsive no-padding" id="auditoutputupdate">
-								<table class="table table-bordered table-hover" id="auditupdatetable">
-								</table>
-							</div>
-							<!-- /.box-body -->
-						</div>
-						<div class="box box-primary">
-							<div class="box-header">
-								<h3 class="box-title">Audit Recommendation</h3>
-
-							</div>
-
-							<div class="box-body table-responsive no-padding" id="auditoutputupdaterecommendation">
-								<table class="table table-bordered table-hover" id="auditupdatetablerecommendation">
-								</table>
-							</div>
-							<!-- /.box-body -->
-						</div>
-						<div class="box box-info">
-							<div class="box-header">
-								<h3 class="box-title">Update History</h3>
-								<input type="hidden" class="form-control" id="IDum" disabled="">
-							</div>
-							<!-- /.box-header -->
-							<div class="box-body table-responsive no-padding" id="outputupdateaudit">
-								<table class="table table-bordered table-hover" id="updateupdateauditupdate">
-								</table>
-							</div>
-							<!-- /.box-body -->
-						</div>
+						<input name="auditid" type="hidden" class="form-control" id="auditidApprove" disabled="">
 						<div class="box box-primary">
 							<div class="box-header">
 								<h3 class="box-title">Insert your update here...</h3>
 							</div>
 
 							<div class="box-body" id="updateresetaudit">
-								<!-- <label>Update Content</label> -->
 								<div class="form-group">
-									<label>Item Number:</label>
-									<select class="form-control select2" style="width: 100%;" id="audititemno">
-
-									</select>
+									<textarea class="form-control" rows="5" placeholder="Enter Update..." id="updateauditapprove"></textarea>
 								</div>
 
-								<div class="form-group">
-									<textarea class="form-control" rows="5" placeholder="Enter Update..." id="updatecontentaudit"></textarea>
-								</div>
+								<input class="form-control" type="text" placeholder="Name" id="auditApprove">
 
 								<form id="qasoad">
-									<!-- <textarea class="form-control" rows="3" placeholder="Enter Feedback..." id="qasoupdatecontentcompwa"></textarea>
-									<input class="form-control" type="text" placeholder="Name" id="qasoupdateusercompwa"> -->
 									<label>
 										<input type="radio" name="r3" id='r3' class="minimal" value="1" checked>
 										Approve Closure
