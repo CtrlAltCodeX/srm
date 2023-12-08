@@ -46,7 +46,6 @@ $pageuser = "MNOS";
   <link rel="stylesheet" href="../../plugins/fine-upload/fine-uploader-gallery.min.css">
 
 
-
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -348,7 +347,7 @@ $pageuser = "MNOS";
       var params = {};
       // params[csrf] = token;S
 
-      $('#audit_image_galery').fineUploader({
+      $('.audit_image_galery').fineUploader({
         template: 'qq-template-gallery',
         request: {
           endpoint: '../dbfiles/upload.php',
@@ -375,9 +374,9 @@ $pageuser = "MNOS";
         callbacks: {
           onComplete: function(id, name, xhr) {
             if (xhr.success) {
-              var uuid = $('#audit_image_galery').fineUploader('getUuid', id);
-              $('#audit_image_galery_listed').append('<input type="text" hidden class="listed_file_uuid" name="audit_image_uuid[]" value="' + uuid + '" /><input type="text" hidden class="listed_file_name" name="audit_image_name[]" value="' + xhr.uploadName + '" />');
-              // $('#audit_image_galery_listed').append('<input type="text" class="listed_file_uuid" name="audit_image_uuid[' + id + ']" value="' + uuid + '" /><input type="text" class="listed_file_name" name="audit_image_name[' + id + ']" value="' + xhr.uploadName + '" />');
+              var uuid = $('.audit_image_galery').fineUploader('getUuid', id);
+              $('.audit_image_galery_listed').append('<input type="text" hidden class="listed_file_uuid" name="audit_image_uuid[]" value="' + uuid + '" /><input type="text" hidden class="listed_file_name" name="audit_image_name[]" value="' + xhr.uploadName + '" />');
+              // $('.audit_image_galery_listed').append('<input type="text" class="listed_file_uuid" name="audit_image_uuid[' + id + ']" value="' + uuid + '" /><input type="text" class="listed_file_name" name="audit_image_name[' + id + ']" value="' + xhr.uploadName + '" />');
 
             } else {
               toastr['error'](xhr.error);
@@ -385,8 +384,8 @@ $pageuser = "MNOS";
           },
           onDeleteComplete: function(id, xhr, isError) {
             if (isError == false) {
-              $('#audit_image_galery_listed').find('.listed_file_uuid[name="audit_image_uuid[' + id + ']"]').remove();
-              $('#audit_image_galery_listed').find('.listed_file_name[name="audit_image_name[' + id + ']"]').remove();
+              $('.audit_image_galery_listed').find('.listed_file_uuid[name="audit_image_uuid[' + id + ']"]').remove();
+              $('.audit_image_galery_listed').find('.listed_file_name[name="audit_image_name[' + id + ']"]').remove();
             }
           }
         }

@@ -51,6 +51,7 @@ if ($uploadOk == 0) {
     echo json_encode($result);
 } else {
     $upload = move_uploaded_file($_FILES['qqfile']['tmp_name'], $target_file);
+
     if ($upload) {
         $result = [
             'uploadName'    => $_POST['qqfilename'],

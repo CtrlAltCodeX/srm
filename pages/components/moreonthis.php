@@ -76,12 +76,11 @@
 				<h4 class="modal-title" id="myMODALTWOLabel"></h4>
 			</div>
 			<div class="modal-body">
-				<form role="form" method="POST" action="" id="stuffthree">
+				<form role="form" method="POST" action="" id="stuffthree" enctype="multipart/form-data">
 					<div class="col-md-12">
 						<div class="box box-primary">
 							<div class="box-header">
 								<h3 class="box-title">Hazard Description</h3>
-
 							</div>
 
 							<div class="box-body table-responsive no-padding" id="hazardoutput">
@@ -126,8 +125,8 @@
 								</div> -->
 
 								<div class="col-sm-12">
-									<div id="audit_image_galery"></div>
-									<div id="audit_image_galery_listed"></div>
+									<div id="audit_image_galery" class="audit_image_galery"></div>
+									<div id="audit_image_galery_listed" class="audit_image_galery_listed"></div>
 									<small class="info help-block">
 										<b>Extension file must</b> jpg, jpeg, png, csv, xlsx, doc, pdf</small>
 								</div>
@@ -139,10 +138,8 @@
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				<button type="button" class="btn btn-primary" onclick="update()">Update</button>
 				<button type="button" id="PrintTwo" class="btn btn-danger">Print</button>
-
 			</div>
 		</div>
-
 	</div>
 </div>
 </div>
@@ -1758,27 +1755,25 @@
 								<input class="form-control" type="text" placeholder="Name" id="updateusercomp">
 							</div>
 							<div><label><input type="checkbox" class="flat-red" id="statuscomp">To be Closed(Check if you are closing this item, leave it unchecked if you are just updating)</label></div>
-							<div class="form-group">
+							<!-- <div class="form-group">
 								<label for="exampleInputFile">Evidence Upload</label>
 								<input type="file" id="exampleInputFilecomp" class='dummy'>
 								<p class="help-block">Upload evidence here. File formats supported : jpg, Word, Excel, PDF.</p>
-							</div>
+							</div> -->
 
-							<!-- <div class="col-sm-12">
-								<div id="audit_image_galery"></div>
-								<div id="audit_image_galery_listed"></div>
+							<div class="col-sm-12">
+								<div id="audit_image_galery" class="audit_image_galery"></div>
+								<div id="audit_image_galery_listed" class="audit_image_galery_listed"></div>
 								<small class="info help-block">
 									<b>Extension file must</b> jpg, jpeg, png, csv, xlsx, doc, pdf</small>
-							</div> -->
+							</div>
+
+
+
 
 
 						</div>
-
-
 					</div>
-
-
-
 				</form>
 
 			</div>
@@ -1877,18 +1872,18 @@
 									<input class="form-control" type="text" placeholder="Name" id="updateuseraudit">
 								</div>
 								<div><label><input type="checkbox" class="flat-red" id="statusaudit">To be Closed(Check if you are closing this item, leave it unchecked if you are just updating)</label></div>
-								<div class="form-group">
+								<!-- <div class="form-group">
 									<label for="exampleInputFile">Evidence Upload</label>
 									<input type="file" id="exampleInputFileaudit">
 									<p class="help-block">Upload evidence here. </p>
-								</div>
+								</div> -->
 
-								<!-- <div class="col-sm-12">
-									<div id="audit_image_galery"></div>
-									<div id="audit_image_galery_listed"></div>
+								<div class="col-sm-12">
+									<div id="audit_image_galery" class="audit_image_galery"></div>
+									<div id="audit_image_galery_listed" class="audit_image_galery_listed"></div>
 									<small class="info help-block">
 										<b>Extension file must</b> jpg, jpeg, png, csv, xlsx, doc, pdf</small>
-								</div> -->
+								</div>
 
 
 							</div>

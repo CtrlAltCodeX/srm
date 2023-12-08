@@ -39,16 +39,8 @@ $pageuser = "OHS";
   <link rel="stylesheet" href="../../plugins/select2/select2.css">
 
   <link rel="stylesheet" href="../../dist/css/custom.css">
+  <link rel="stylesheet" href="../../plugins/fine-upload/fine-uploader-gallery.min.css" />
 
-
-
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -406,6 +398,144 @@ $pageuser = "OHS";
         <script src="../components/qasomorfunctions.js"></script>
         <script src="../components/qasoonload.js"></script>
 
+  <script src="../../plugins/fine-upload/jquery.fine-uploader.min.js"></script>
+
+  <script type="text/template" id="qq-template-gallery">
+    <div class="qq-new-skin shadow qq-upload-image-placeholder  qq-uploader-selector qq-uploader qq-gallery " qq-drop-area-text="Drop files here">
+      <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
+        <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
+      </div>
+      <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
+        <span class="qq-upload-drop-area-text-selector"></span>
+      </div>
+      <div class="qq-upload-button-selector qq-upload-button">
+        <div> Select</div>
+      </div>
+
+      <span class="qq-drop-processing-selector qq-drop-processing">
+        <span>Processing dropped files...</span>
+        <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
+      </span>
+      <ul class="qq-upload-list-selector qq-upload-list" role="region" aria-live="polite" aria-relevant="additions removals">
+        <li>
+          <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
+          <div class="qq-progress-bar-container-selector qq-progress-bar-container">
+            <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"></div>
+          </div>
+          <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
+          <div class="qq-thumbnail-wrapper">
+            <img class="qq-thumbnail-selector" id="picture" qq-max-size="120" qq-server-scale>
+          </div>
+          <button type="button" class="qq-upload-cancel-selector qq-upload-cancel btn btn-flat btn-warning">X</button>
+          <button type="button" class="qq-upload-retry-selector qq-upload-retry btn btn-flat">
+            <span class="qq-btn qq-retry-icon" aria-label="Retry"></span>
+            Retry
+          </button>
+
+          <div class="qq-file-info">
+            <div class="qq-file-name">
+              <span class="qq-upload-file-selector qq-upload-file"></span>
+              <span class="qq-edit-filename-icon-selector qq-edit-filename-icon" aria-label="Edit filename"></span>
+            </div>
+            <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
+            <span class="qq-upload-size-selector qq-upload-size"></span>
+            <button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete btn btn-flat">
+              <span class="fa fa-close"></span>
+            </button>
+            <button type="button" class="qq-btn qq-upload-pause-selector qq-upload-pause btn btn-flat">
+              <span class="qq-btn qq-pause-icon" aria-label="Pause"></span>
+            </button>
+            <button type="button" class="qq-btn qq-upload-continue-selector qq-upload-continue btn btn-flat">
+              <span class="qq-btn qq-continue-icon" aria-label="Continue"></span>
+            </button>
+          </div>
+        </li>
+      </ul>
+
+      <dialog class="qq-alert-dialog-selector">
+        <div class="qq-dialog-message-selector"></div>
+        <div class="qq-dialog-buttons">
+          <button type="button" class="qq-cancel-button-selector">Close</button>
+        </div>
+      </dialog>
+
+      <dialog class="qq-confirm-dialog-selector">
+        <div class="qq-dialog-message-selector"></div>
+        <div class="qq-dialog-buttons">
+          <button type="button" class="qq-cancel-button-selector">No</button>
+          <button type="button" class="qq-ok-button-selector">Yes</button>
+        </div>
+      </dialog>
+
+      <dialog class="qq-prompt-dialog-selector">
+        <div class="qq-dialog-message-selector"></div>
+        <input type="text">
+        <div class="qq-dialog-buttons">
+          <button type="button" class="qq-cancel-button-selector">Cancel</button>
+          <button type="button" class="qq-ok-button-selector">Ok</button>
+        </div>
+      </dialog>
+    </div>
+  </script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var params = {};
+      // params[csrf] = token;S
+
+      $("#audit_image_galery").fineUploader({
+        template: "qq-template-gallery",
+        request: {
+          endpoint: "../dbfiles/upload.php",
+          params: params,
+        },
+        deleteFile: {
+          enabled: true,
+          endpoint: "../components/delete_image_file",
+        },
+        thumbnails: {
+          placeholders: {
+            waitingPath: "../../plugins/fine-upload/placeholders/waiting-generic.png",
+            notAvailablePath: "../../plugins/fine-upload/placeholders/not_available-generic.png",
+          },
+        },
+        validation: {
+          allowedExtensions: ["jpg", "jpeg", "png", "csv", "xlsx", "doc", "pdf"],
+          sizeLimit: 0,
+        },
+        showMessage: function(msg) {
+          toastr["error"](msg);
+        },
+        callbacks: {
+          onComplete: function(id, name, xhr) {
+            if (xhr.success) {
+              var uuid = $("#audit_image_galery").fineUploader("getUuid", id);
+              $("#audit_image_galery_listed").append(
+                '<input type="text" hidden class="listed_file_uuid" name="audit_image_uuid[]" value="' +
+                uuid +
+                '" /><input type="text" hidden class="listed_file_name" name="audit_image_name[]" value="' +
+                xhr.uploadName +
+                '" />'
+              );
+              // $('#audit_image_galery_listed').append('<input type="text" class="listed_file_uuid" name="audit_image_uuid[' + id + ']" value="' + uuid + '" /><input type="text" class="listed_file_name" name="audit_image_name[' + id + ']" value="' + xhr.uploadName + '" />');
+            } else {
+              toastr["error"](xhr.error);
+            }
+          },
+          onDeleteComplete: function(id, xhr, isError) {
+            if (isError == false) {
+              $("#audit_image_galery_listed")
+                .find('.listed_file_uuid[name="audit_image_uuid[' + id + ']"]')
+                .remove();
+              $("#audit_image_galery_listed")
+                .find('.listed_file_name[name="audit_image_name[' + id + ']"]')
+                .remove();
+            }
+          },
+        },
+      }); /*end image galery*/
+    });
+  </script>
 
 </body>
 

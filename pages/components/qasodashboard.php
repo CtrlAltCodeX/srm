@@ -1729,8 +1729,8 @@
 									<label for="exampleInputFile">Evidence Upload(if available)</label>
 
 									<div class="col-sm-12">
-										<div id="audit_image_galery"></div>
-										<div id="audit_image_galery_listed"></div>
+										<div id="audit_image_galery" class="audit_image_galery"></div>
+										<div id="audit_image_galery_listed" class="audit_image_galery_listed"></div>
 										<small class="info help-block">
 											<b>Extension file must</b> jpg, jpeg, png, csv, xlsx, doc, pdf</small>
 									</div>
