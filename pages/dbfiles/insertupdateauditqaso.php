@@ -11,7 +11,7 @@ $FileName = mysqli_real_escape_string($db, $_POST['FileName']);
 
 $extension = mysqli_real_escape_string($db, $_POST['extension']);
 
-$query = "update audit set LASTUPDATE=now() WHERE AID='$id';
+$query = "update audit set LASTUPDATE=now(), CLOSEDRO='$status' WHERE AID='$id';
 				  update recommendations set STATUS='$status' WHERE IDWA='$audititemno';
 		          INSERT INTO auditweeklyupdate(AID,UPDATEDATE,UPDATECONTENT,PERSON,STATUS,FILENAME,FILESIZE,FILETYPE,EXTENSION,ITEM,RISKOWNER)
 				  VALUES('$id',CURDATE(),'$updatecontent', '$updateuser','$status','$FileName', 'NOT NEEDED','NOT NEEDED','$extension','$audititemno','$ro')";

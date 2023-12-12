@@ -10,6 +10,8 @@ $(document).ready(function () {
   $(".approve").click(function (e) {
     $("#auditidApprove").val(e.currentTarget.getAttribute("data-id"));
   });
+
+  $("#closure-audit").DataTable();
 });
 
 function myFunction() {
@@ -342,10 +344,10 @@ function approveDisapprove() /* DONE */ {
     setTimeout(function () {
       $("#UPDATEAUDIT").modal("hide");
     }, 3);
-    var IDAUDIT = document.getElementById("auditidApprove").value;
+    var IDAUDIT = document.getElementById("updateaudit").value;
     var auditApproveUser = document.getElementById("auditApprove").value;
 
-    if (document.getElementById("r3").checked) {
+    if (document.getElementById("r3").checked && document.getElementById("r3").value == 1) {
       status = "CLOSED";
     } else {
       status = "OPEN";
@@ -360,7 +362,7 @@ function approveDisapprove() /* DONE */ {
       status: status,
       FileName: "",
       extension: "",
-	  closure: true,
+	    closure: status == 'CLOSED' ? true : false,
     };
 
     // AJAX code to submit form.
@@ -779,97 +781,98 @@ function updatemor() {
   return false;
 }
 
-function updateaudit() {
-  setTimeout(function () {
-    $("#QASOAUDITMODAL").modal("hide");
-  }, 3);
-  $("#submitting").show();
-  var updatecontent = document.getElementById("qasoupdatecontentaudit").value;
-  var updateuser = document.getElementById("qasoupdateuseraudit").value;
-  var id = document.getElementById("auditid").value;
+// function updateaudit() {
+//   // setTimeout(function () {
+//   //   $("#QASOAUDITMODAL").modal("hide");
+//   // }, 3);
+//   $("#submitting").show();
+//   var updatecontent = document.getElementById("qasoupdatecontentaudit").value;
+//   var updateuser = document.getElementById("qasoupdateuseraudit").value;
+//   var id = document.getElementById("auditid").value;
 
-  var radio = $("input[name=r3]:radio:checked").val();
+//   var radio = $("input[name=r3]:radio:checked").val();
+//   console.log(radio);
 
-  if (radio === "1") {
-    var status = "CLOSED";
-    var dataStringro = {
-      id: id,
-      updatecontent: updatecontent,
-      updateuser: updateuser,
-      status: status,
-    };
-    $.ajax({
-      type: "POST",
-      url: "../qasodbfiles/insertupdateaudit.php",
-      data: dataStringro,
-      cache: false,
-      success: function (html) {
-        $("html,body").animate({ scrollTop: 0 }, 500);
-        $("#submitting").hide();
-        $("#successmodel").show();
-        setTimeout(function () {
-          location.reload();
-        }, 1001);
-      },
-      error: function (html) {
-        $("html").scrollTop(0);
-        setTimeout(function () {
-          $("#submitting").modal("hide");
-        }, 3);
-        $("#submitting").show();
-        $("#submitting")
-          .fadeTo(3000, 500)
-          .slideUp(500, function () {
-            $("#submitting").alert("close");
-          });
+//   if (radio === "1") {
+//     var status = "CLOSED";
+//     var dataStringro = {
+//       id: id,
+//       updatecontent: updatecontent,
+//       updateuser: updateuser,
+//       status: status,
+//     };
+//     $.ajax({
+//       type: "POST",
+//       url: "../qasodbfiles/insertupdateaudit.php",
+//       data: dataStringro,
+//       cache: false,
+//       success: function (html) {
+//         $("html,body").animate({ scrollTop: 0 }, 500);
+//         $("#submitting").hide();
+//         $("#successmodel").show();
+//         setTimeout(function () {
+//           location.reload();
+//         }, 1001);
+//       },
+//       error: function (html) {
+//         $("html").scrollTop(0);
+//         setTimeout(function () {
+//           $("#submitting").modal("hide");
+//         }, 3);
+//         $("#submitting").show();
+//         $("#submitting")
+//           .fadeTo(3000, 500)
+//           .slideUp(500, function () {
+//             $("#submitting").alert("close");
+//           });
 
-        $("#verybadmodel").delay(3200).fadeIn(500);
-        $("#verybadmodel").delay(3000).fadeOut(500);
-      },
-    });
-  } else {
-    var status = "OPEN";
-    var dataStringro = {
-      id: id,
-      updatecontent: updatecontent,
-      updateuser: updateuser,
-      status: status,
-    };
-    $.ajax({
-      type: "POST",
-      url: "../qasodbfiles/insertupdateaudit.php",
-      data: dataStringro,
-      cache: false,
-      success: function (html) {
-        $("html,body").animate({ scrollTop: 0 }, 500);
-        $("#submitting").hide();
-        $("#successmodel").show();
-        setTimeout(function () {
-          location.reload();
-        }, 1001);
-      },
-      error: function (html) {
-        $("html").scrollTop(0);
-        setTimeout(function () {
-          $("#submitting").modal("hide");
-        }, 3);
-        $("#submitting").show();
-        $("#submitting")
-          .fadeTo(3000, 500)
-          .slideUp(500, function () {
-            $("#submitting").alert("close");
-          });
+//         $("#verybadmodel").delay(3200).fadeIn(500);
+//         $("#verybadmodel").delay(3000).fadeOut(500);
+//       },
+//     });
+//   } else {
+//     var status = "OPEN";
+//     var dataStringro = {
+//       id: id,
+//       updatecontent: updatecontent,
+//       updateuser: updateuser,
+//       status: status,
+//     };
+//     $.ajax({
+//       type: "POST",
+//       url: "../qasodbfiles/insertupdateaudit.php",
+//       data: dataStringro,
+//       cache: false,
+//       success: function (html) {
+//         $("html,body").animate({ scrollTop: 0 }, 500);
+//         $("#submitting").hide();
+//         $("#successmodel").show();
+//         setTimeout(function () {
+//           location.reload();
+//         }, 1001);
+//       },
+//       error: function (html) {
+//         $("html").scrollTop(0);
+//         setTimeout(function () {
+//           $("#submitting").modal("hide");
+//         }, 3);
+//         $("#submitting").show();
+//         $("#submitting")
+//           .fadeTo(3000, 500)
+//           .slideUp(500, function () {
+//             $("#submitting").alert("close");
+//           });
 
-        $("#verybadmodel").delay(3200).fadeIn(500);
-        $("#verybadmodel").delay(3000).fadeOut(500);
-      },
-    });
-  }
+//         $("#verybadmodel").delay(3200).fadeIn(500);
+//         $("#verybadmodel").delay(3000).fadeOut(500);
+//       },
+//     });
+//   }
 
-  // AJAX code to submit form.
+//   // AJAX code to submit form.
 
-  return false;
-}
+//   return false;
+// }
 
 function updateauditall() {
   setTimeout(function () {

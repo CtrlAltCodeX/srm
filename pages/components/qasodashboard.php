@@ -131,20 +131,20 @@
 				</thead>
 				<tbody>
 					<?php
-						include '../../dbconfig.php';
-						$query = "SELECT * FROM mor WHERE CLOSEDRO='CLOSED' AND STATUS='OPEN' AND QASO='$pageuser'";
-						mysqli_query($db, $query) or die('Error querying database.');
-						$result = mysqli_query($db, $query);
+					include '../../dbconfig.php';
+					$query = "SELECT * FROM mor WHERE CLOSEDRO='CLOSED' AND STATUS='OPEN' AND QASO='$pageuser'";
+					mysqli_query($db, $query) or die('Error querying database.');
+					$result = mysqli_query($db, $query);
 
 
-						while ($row = mysqli_fetch_array($result)) {
+					while ($row = mysqli_fetch_array($result)) {
 
-							echo "<tr>";
-							echo "<td>" . $row['MORID'] . "</td>";
+						echo "<tr>";
+						echo "<td>" . $row['MORID'] . "</td>";
 
-							echo "<td>" . $row['CAAFID'] . "</td>";
+						echo "<td>" . $row['CAAFID'] . "</td>";
 
-							echo "<td><button type='button' class='btn btn-danger' data-toggle='modal' data-target='#MORMODALQASO' 
+						echo "<td><button type='button' class='btn btn-danger' data-toggle='modal' data-target='#MORMODALQASO' 
 										data-id='" . $row['MORID'] . "'data-caafid='" . $row['CAAFID'] . "'data-catofoc='" . $row['CATOFOC'] . "'data-actype='" . $row['ACTYPE'] . "'data-reg='" . $row['REG'] . "'data-operator='" . $row['OPERATOR'] . "'
 										data-date='" . $row['DATE'] . "'data-time='" . $row['TIME'] . "'data-timetype='" . $row['TIMETYPE'] . "'data-loc_pos_rwy='" . $row['LOC_POS_RWY'] . "'data-fcr_flightno='" . $row['FCR_FLIGHTNO'] . "'
 										data-fcr_rf='" . $row['FCR_RF'] . "'data-fcr_rt='" . $row['FCR_RT'] . "'data-fcr_ias='" . $row['FCR_IAS'] . "' 
@@ -158,9 +158,9 @@
 										data-reporter_org='" . $row['REPORTER_ORG'] . "'data-reporter_name='" . $row['REPORTER_NAME'] . "'data-reporter_position='" . $row['REPORTER_POSITION'] . "'
 										data-lastupdate='" . $row['LASTUPDATE'] . "'data-receiveddate='" . $row['RECEIVEDDATE'] . "'data-riskowner='" . $row['RISKOWNER'] . "'>View </button></td>";
 
-							echo "</tr>";
-						}
-						mysqli_close($db);
+						echo "</tr>";
+					}
+					mysqli_close($db);
 					?>
 				</tbody>
 				<tfoot>
@@ -183,45 +183,42 @@
 
 	<div class="box-body" id="tablediv">
 		<div class="table-responsive">
-			<table id="example2" class="table table-bordered table-striped">
+			<table id="closure-audit" class="table table-bordered table-striped">
 				<thead>
 					<tr>
 						<th>ID</th>
 						<th>Audit Type</th>
 						<th>Date of Audit</th>
-						<th>View</th>
 						<th>Update</th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php
-						include '../../dbconfig.php';
-						$query = "SELECT DISTINCT(AID),AUDIT_TYPE, DATE
-								FROM audit,recommendations  WHERE  audit.AID=recommendations.ID  AND audit.QASO='$pageuser' AND recommendations.STATUS='CLOSED' AND audit.STATUS='OPEN' GROUP BY AID";
-						mysqli_query($db, $query) or die(mysqli_error($db));
-						$result = mysqli_query($db, $query);
+					include '../../dbconfig.php';
+					$query = "SELECT DISTINCT(AID),AUDIT_TYPE, DATE, AUDIT_TYPE, AIRPORT, RISK_LEVEL, CRITERIA, EFFECT, CAUSE
+								FROM audit,recommendations  WHERE  audit.AID=recommendations.ID  AND audit.QASO='$pageuser' AND audit.CLOSEDRO='CLOSED' AND audit.STATUS='OPEN' GROUP BY AID";
+					mysqli_query($db, $query) or die(mysqli_error($db));
+					$result = mysqli_query($db, $query);
 
-						while ($row = mysqli_fetch_array($result)) {
+					while ($row = mysqli_fetch_array($result)) {
 
-							echo "<tr>";
-							echo "<td>" . $row['AID'] . "</td>";
-							echo "<td>" . $row['AUDIT_TYPE'] . "</td>";
-							echo "<td>" . $row['DATE'] . "</td>";
-							echo "<td><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#AUDITMODAL' data-id='" . $row['AID'] . "'data-ro='" . $pageuser . "'>View </button></td>";
+						echo "<tr>";
+						echo "<td>" . $row['AID'] . "</td>";
+						echo "<td>" . $row['AUDIT_TYPE'] . "</td>";
+						echo "<td>" . $row['DATE'] . "</td>";
 
-							echo "<td><button type='button' class='btn btn-success approve' data-toggle='modal' data-target='#UPDATEAUDIT' data-id='" . $row['AID'] . "'data-ro='" . $pageuser . "'>Update</button></td>";
+						echo "<td><button type='button' class='btn btn-success approve' data-toggle='modal' data-target='#UPDATEAUDIT' data-id='" . $row['AID'] . "'data-ro='" . $pageuser . "' data-date='".$row['DATE']."' data-type='".$row['AUDIT_TYPE']."' data-airport='".$row['AIRPORT']."' data-level='".$row['RISK_LEVEL']."' data-effect='".$row['EFFECT']."' data-cause='".$row['CAUSE']."' data-criteria='".$row['CRITERIA']."' data-status='".$row['STATUS']."'  >View</button></td>";
 
-							echo "</tr>";
-						}
-						mysqli_close($db);
+						echo "</tr>";
+					}
+					mysqli_close($db);
 					?>
 				</tbody>
 				<tfoot>
 					<tr>
 						<th>ID</th>
-						<th>Risk Level</th>
-						<th>Completion</th>
-						<th>Details</th>
+						<th>Audit Type</th>
+						<th>Date of Audit</th>
 						<th>Update</th>
 					</tr>
 				</tfoot>
@@ -1762,44 +1759,90 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title" id="AUDITMODALLabel"></h4>
 			</div>
+
+			<input name="auditid" type="hidden" class="form-control" id="updateaudit" disabled="">
+
 			<div class="modal-body">
-				<form role="form" method="POST" action="" id="stuff">
-					<div class="col-md-12">
+				<form role="form" method="POST" action="" id="updateaudit">
+					<div class="form-group">
+						<label>Audit ID:</label>
+						<input class="form-control" placeholder="Audit ID" id="audit_id" type="text" disabled=""></input>
+						
+						<label>Date of Audit:</label>
+						<input class="form-control" placeholder="Date of Audit" id="date" type="text" disabled=""></input>
 
-						<input name="auditid" type="hidden" class="form-control" id="auditidApprove" disabled="">
-						<div class="box box-primary">
+						<label>Audit Type</label>
+						<input class="form-control" placeholder="Audit Type" id="type" type="text" disabled=""></input>
+
+						<label>Airport</label>
+						<textarea class="form-control" rows="1" placeholder="Airport" id="airport" disabled=""></textarea>
+
+						<label>Risk Level</label>
+						<input class="form-control" placeholder="Risk Level" id="level" type="text" disabled=""></input>
+
+						<label>Effect</label>
+						<input class="form-control" placeholder="Effect" id="effect" type="text" disabled=""></input>
+
+						<label>Cause</label>
+						<input class="form-control" placeholder="Cause" id="cause" type="text" disabled=""></input>
+						
+						<label>Criteria</label>
+						<textarea class="form-control" id='criteria' disabled rows="10"></textarea>
+
+						<label>Status</label>
+						<select class="form-control select2" style="width: 100%; " id="statusaudit" disabled="">
+							<option>OPEN</option>
+							<option>CLOSED</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<div class="box box-info">
 							<div class="box-header">
-								<h3 class="box-title">Insert your update here...</h3>
+								<h3 class="box-title">Update History</h3>
+								<input type="hidden" class="form-control" id="IDCOMPwa" disabled="">
 							</div>
-
-							<div class="box-body" id="updateresetaudit">
-								<div class="form-group">
-									<textarea class="form-control" rows="5" placeholder="Enter Update..." id="updateauditapprove"></textarea>
-								</div>
-
-								<input class="form-control" type="text" placeholder="Name" id="auditApprove">
-
-								<form id="qasoad">
-									<label>
-										<input type="radio" name="r3" id='r3' class="minimal" value="1" checked>
-										Approve Closure
-									</label>
-									<label>
-										<input type="radio" name="r3" class="minimal" value="2">
-										Disapprove Closure
-									</label>
-								</form>
-
+							<!-- /.box-header -->
+							<div class="box-body table-responsive no-padding" id="outputupdatecompwa">
+								<table class="table table-bordered table-hover" id="audithistory">
+								</table>
 							</div>
 						</div>
 					</div>
+
+					<div class="box box-primary">
+						<div class="box-header">
+							<h3 class="box-title">Insert your update here...</h3>
+						</div>
+
+						<div class="box-body" id="updateresetaudit">
+							<div class="form-group">
+								<textarea class="form-control" rows="5" placeholder="Enter Update..." id="updateauditapprove"></textarea>
+							</div>
+
+							<input class="form-control" type="text" placeholder="Name" id="auditApprove">
+
+							<form id="qasoad">
+								<label>
+									<input type="radio" name="r3" id='r3' class="minimal" value="1" checked>
+									Approve Closure
+								</label>
+								<label>
+									<input type="radio" name="r3" class="minimal" value="2">
+									Disapprove Closure
+								</label>
+							</form>
+
+						</div>
+					</div>
+
 				</form>
-				<div class="modal-footer">
+			</div>
 
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" onclick="approveDisapprove()">Update</button>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
-				</div>
+				<button type="button" class="btn btn-primary" onclick="approveDisapprove()">Update</button>
 			</div>
 		</div>
 	</div>

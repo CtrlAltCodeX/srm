@@ -591,11 +591,6 @@ $('#QASOAUDITMODAL').on('show.bs.modal', function (event) {
     });
 })
 
-
-
-
-
-
 $('#AUDITMODAL').on('show.bs.modal', function (event) {
     $('#auditmoreonthistable').empty();
     $('#auditmoreonthistablerecommendation').empty();
@@ -1010,10 +1005,6 @@ $('#AUDITMODALUPDATE').on('show.bs.modal', function (event) {
         dataType: 'json',
 
         success: function (html) {
-            // 
-            // console.log(html);
-            /* var title=html[0];  */
-
             var len = html.length;
 
             var tr_strone = "<thead><tr>" +
@@ -1033,21 +1024,8 @@ $('#AUDITMODALUPDATE').on('show.bs.modal', function (event) {
                 var updatecontent = html[i].updatecontent;
                 var person = html[i].person;
                 var link = html[i].link;
-                // console.log("link" + link);
 
                 $("#auditidupdate").val(aid);
-
-
-                // var tr_str = "<tr>" +
-                //     "<td >" + aid + "</td>" +
-                //     "<td >" + item + "</td>" +
-                //     "<td >" + updatedate + "</td>" +
-                //     "<td >" + updatecontent + "</td>" +
-                //     "<td >" + person + "</td>" +
-                //     "<td >" + link + "</td>" +
-                //     "</tr>";
-
-                // $("#updateupdateauditupdate").append(tr_str);
 
                 var tr_str = "<tr>" +
                     "<td >" + aid + "</td>" +
@@ -1057,8 +1035,6 @@ $('#AUDITMODALUPDATE').on('show.bs.modal', function (event) {
                     "<td >" + person + "</td>" +
                     "<td id=file" + i + " class='links' files='" + link + "' style='cursor:pointer;'>Download</td>" +
                     "</tr>";
-
-                // console.log(link)
 
                 $("#updateupdateauditupdate").append(tr_str);
 
@@ -1082,8 +1058,6 @@ $('#AUDITMODALUPDATE').on('show.bs.modal', function (event) {
                         });
                     });
                 });
-
-
             }
             var tr_strqw = "</tbody><tfoot><tr>" +
                 "<th >ID</th>" +
@@ -1095,13 +1069,6 @@ $('#AUDITMODALUPDATE').on('show.bs.modal', function (event) {
                 "</tr></tfoot><tbody>";
 
             $("#updateupdateauditupdate").append(tr_strqw);
-
-
-
-
-
-
-
         },
         error: function (html) {
             console.log(html);
@@ -1111,6 +1078,114 @@ $('#AUDITMODALUPDATE').on('show.bs.modal', function (event) {
 
 })
 
+$('#UPDATEAUDIT').on('show.bs.modal', function(event) {
+    if (event.relatedTarget === undefined) return;
+    $('#updateupdatecomp').empty();
+    var button = $(event.relatedTarget) // Button that triggered the modal
+    var ID = button.data('id')
+    var date = button.data('date')
+    var type = button.data('type')
+    var airport = button.data('airport')
+    var level = button.data('level')
+    var effect = button.data('effect')
+    var cause = button.data('cause')
+    var criteria = button.data('criteria')
+    var status = button.data('status')
+
+    var modal = $(this)
+    modal.find('.modal-title').text('More details for Audit ID : ' + ID)
+    modal.find('.modal-body #audit_id').val(ID)
+    modal.find('.modal-body #date').val(date)
+    modal.find('.modal-body #type').val(type)
+    modal.find('.modal-body #airport').val(airport)
+    modal.find('.modal-body #level').val(level)
+    modal.find('.modal-body #effect').val(effect)
+    modal.find('.modal-body #cause').val(cause)
+    modal.find('.modal-body #criteria').html(criteria)
+
+    modal.find('.modal-body #statuswa').val(status)
+
+    var dataString = { id: ID };
+    $.ajax({
+        type: "POST",
+        url: "../dbfiles/processupdateauditqaso.php",
+        data: dataString,
+        cache: false,
+        dataType: 'json',
+        success: function (html) {
+            var len = html.length;
+
+            var tr_strone = "<thead><tr>" +
+                "<th>ID</th>" +
+                "<th>Item Number</th>" +
+                "<th > <nobr>Update Date</nobr></th>" +
+                "<th>Update Content</th>" +
+                "<th>Person</th>" +
+                "<th>Evidence</th>" +
+                "</tr></thead><tbody>";
+
+            $("#audithistory").append(tr_strone);
+            
+            for (var i = 0; i < len; i++) {
+                var aid = html[i].aid;
+                var item = html[i].item;
+                var updatedate = html[i].updatedate;
+                var updatecontent = html[i].updatecontent;
+                var person = html[i].person;
+                var link = html[i].link;
+
+                $("#updateaudit").val(aid);
+
+                var tr_str = "<tr>" +
+                    "<td >" + aid + "</td>" +
+                    "<td >" + item + "</td>" +
+                    "<td >" + updatedate + "</td>" +
+                    "<td >" + updatecontent + "</td>" +
+                    "<td >" + person + "</td>" +
+                    "<td id=file" + i + " class='links' files='" + link + "' style='cursor:pointer;'>Download</td>" +
+                    "</tr>";
+
+                $("#audithistory").append(tr_str);
+
+                function downloadFile(url, filename) {
+                    var anchor = $('<a>')
+                        .attr('href', url)
+                        .attr('download', filename)
+                        .appendTo('body');
+                    anchor[0].click();
+                    anchor.remove();
+                }
+
+                $('.links').each(function () {
+                    $(this).on('click', function (event) {
+                        var files = $(event.target).attr('files').split(',');
+                        files.pop();
+                        console.log(files);
+
+                        $.each(files, function (index, value) {
+                            downloadFile('../uploads/' + value, value);
+                        });
+                    });
+                });
+            }
+
+            var tr_strqw = "</tbody><tfoot><tr>" +
+                "<th >ID</th>" +
+                "<th >Item Number</th>" +
+                "<th >Update Date</th>" +
+                "<th>Update Content</th>" +
+                "<th>Person</th>" +
+                "<th>Evidence</th>" +
+                "</tr></tfoot><tbody>";
+
+            // $("#audithistory").append(tr_strqw);
+        },
+        error: function (html) {
+            console.log(html);
+
+        }
+    });
+})
 
 
 
