@@ -1157,14 +1157,10 @@ function update() {
 			});
 		}
 		return false;
-
-
-
 	}
 
 
 	function updateaudit() /* DONE */ {
-
 		var status = "";
 		if (!$('#updatecontentaudit').val()) {
 			if ($("#updatecontentaudit").parent().next(".validation").length == 0) // only add if not added
@@ -1208,23 +1204,16 @@ function update() {
 				status = "OPEN";
 			}
 
-			var files = $("input[name='audit_image_name[]']").map(function () {
-				return this.value; // $(this).val()
+			var files = $("#file_name input[name='audit_image_name[]']").map(function () {
+				return this.value;
 			}).get().join(",");
 
 			if (files != null) {
-
-
-				/* alert(IDAUDIT); */
-
 				var dataStringro = { id: IDAUDIT, updatecontent: updatecontent, audititemno: audititemno, updateuser: updateuser, status: status, FileName: files, extension: files };
 			}
 			else {
-
 				var dataStringro = { id: IDAUDIT, ro: ro, updatecontent: updatecontent, audititemno: audititemno, updateuser: updateuser, status: status, FileName: "", extension: "" };
-
 			}
-
 
 			// AJAX code to submit form.
 			$.ajax({
@@ -1270,35 +1259,24 @@ function update() {
 						});
 					}
 					else {
-
 						$('html,body').animate({ scrollTop: 0 }, 500);
 						$("#submitting").hide();
 						$('#successmodel').show();
 						setTimeout(function () { location.reload(); }, 1001);
 					}
-
 				},
 				error: function (html) {
-
-
 					$('html,body').animate({ scrollTop: 0 }, 500);
 					$("#submitting").hide();
 					$('#verybadmodel').show();
 					/* setTimeout(function(){location.reload();}, 1001);  */
 				}
-
-
-
 			});
 		}
-
-
 	}
 
 
 	function settargetdate() {
-
-
 		setTimeout(function () { $('#AUDITMODAL').modal('hide') }, 3)
 		$('#submitting').show();
 		var IDAUD = document.getElementById("auditid").value;

@@ -51,13 +51,19 @@ $('#exampleModal').on('show.bs.modal', function (event) {
                 var link = html[i].link;
 
 
+                var text = "";
+                if (link) {
+                    text = 'Download';
+                } else {
+                    text = 'No File';
+                }
                 var tr_str = "<tr>" +
                     "<td >" + hazid + "</td>" +
                     "<td >" + updatedate + "</td>" +
                     "<td >" + updatecontent + "</td>" +
                     "<td >" + person + "</td>" +
                     "<td >" + status + "</td>" +
-                    "<td id=file" + i + " class='links' files='" + link + "' style='cursor:pointer;'>Download</td>" +
+                    "<td id=file" + i + " class='links' files='" + link + "' style='cursor:pointer;'>"+text+"</td>" +
                     "</tr>";
 
                 $("#updatetablee").append(tr_str);
@@ -1027,13 +1033,20 @@ $('#AUDITMODALUPDATE').on('show.bs.modal', function (event) {
 
                 $("#auditidupdate").val(aid);
 
+                var text = "";
+                if (link) {
+                    text = 'Download';
+                } else {
+                    text = 'No File';
+                }
+
                 var tr_str = "<tr>" +
                     "<td >" + aid + "</td>" +
                     "<td >" + item + "</td>" +
                     "<td >" + updatedate + "</td>" +
                     "<td >" + updatecontent + "</td>" +
                     "<td >" + person + "</td>" +
-                    "<td id=file" + i + " class='links' files='" + link + "' style='cursor:pointer;'>Download</td>" +
+                    "<td id=file" + i + " class='links' files='" + link + "' style='cursor:pointer;'>"+ text +"</td>" +
                     "</tr>";
 
                 $("#updateupdateauditupdate").append(tr_str);
@@ -1136,13 +1149,20 @@ $('#UPDATEAUDIT').on('show.bs.modal', function(event) {
 
                 $("#updateaudit").val(aid);
 
+                var text = "";
+                if (link) {
+                    text = 'Download';
+                } else {
+                    text = 'No File';
+                }
+
                 var tr_str = "<tr>" +
                     "<td >" + aid + "</td>" +
                     "<td >" + item + "</td>" +
                     "<td >" + updatedate + "</td>" +
                     "<td >" + updatecontent + "</td>" +
                     "<td >" + person + "</td>" +
-                    "<td id=file" + i + " class='links' files='" + link + "' style='cursor:pointer;'>Download</td>" +
+                    "<td id=file" + i + " class='links' files='" + link + "' style='cursor:pointer;'>"+ text +"</td>" +
                     "</tr>";
 
                 $("#audithistory").append(tr_str);

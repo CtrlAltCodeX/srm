@@ -1468,6 +1468,8 @@ $('#AUDITMODALUPDATE').on('show.bs.modal', function (event) {
 	var ro = button.data('ro') 
 	
 	var modal = $(this)
+    $('.modal-content').removeAttr('id');
+    modal.find(".modal-content").attr('id', 'file_name');
 	modal.find('.modal-title').text('More details for Audit Report for ID : ' + ID)
 	modal.find('.modal-body #auditidupdate').val(ID)
 	
