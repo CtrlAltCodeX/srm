@@ -246,7 +246,7 @@ function update() {
 			var status = "OPEN";
 		}
 
-		var files = $("input[name='audit_image_name[]']").map(function () {
+		var files = $("#file_name input[name='audit_image_name[]']").map(function () {
 			return this.value; // $(this).val()
 		}).get().join(",");
 
@@ -291,45 +291,45 @@ function update() {
 
 			success: function (html) {
 				console.log(html);
-				if (status == "CLOSED") {
-					$.ajax({
-						type: "POST",
-						url: "../dbfiles/emailqasoclosure.php",
-						data: dataStringro,
-						cache: false,
+				// if (status == "CLOSED") {
+				// 	$.ajax({
+				// 		type: "POST",
+				// 		url: "../dbfiles/emailqasoclosure.php",
+				// 		data: dataStringro,
+				// 		cache: false,
 
-						success: function (htmleee) {
-							console.log(htmleee);
-							$('html,body').animate({ scrollTop: 0 }, 500);
-							$("#submitting").hide();
-							$('#successmodel').show();
-							setTimeout(function () { location.reload(); }, 1001);
-
-
-						},
-						error: function (html) {
-							$('html').scrollTop(0);
-							setTimeout(function () { $('#submitting').modal('hide') }, 3)
-							$('#submitting').show();
-							$("#submitting").fadeTo(3000, 500).slideUp(500, function () {
-								$("#submitting").alert('close');
-							});
-
-							$('#verybadmodel').delay(3200).fadeIn(500);
-							$('#verybadmodel').delay(3000).fadeOut(500);
-						}
+				// 		success: function (htmleee) {
+				// 			console.log(htmleee);
+				// 			$('html,body').animate({ scrollTop: 0 }, 500);
+				// 			$("#submitting").hide();
+				// 			$('#successmodel').show();
+				// 			setTimeout(function () { location.reload(); }, 1001);
 
 
+				// 		},
+				// 		error: function (html) {
+				// 			$('html').scrollTop(0);
+				// 			setTimeout(function () { $('#submitting').modal('hide') }, 3)
+				// 			$('#submitting').show();
+				// 			$("#submitting").fadeTo(3000, 500).slideUp(500, function () {
+				// 				$("#submitting").alert('close');
+				// 			});
 
-					});
-				}
-				else {
+				// 			$('#verybadmodel').delay(3200).fadeIn(500);
+				// 			$('#verybadmodel').delay(3000).fadeOut(500);
+				// 		}
 
-					$('html,body').animate({ scrollTop: 0 }, 500);
-					$("#submitting").hide();
-					$('#successmodel').show();
-					setTimeout(function () { location.reload(); }, 1001);
-				}
+
+
+				// 	});
+				// }
+				// else {
+
+				// 	$('html,body').animate({ scrollTop: 0 }, 500);
+				// 	$("#submitting").hide();
+				// 	$('#successmodel').show();
+				// 	setTimeout(function () { location.reload(); }, 1001);
+				// }
 
 
 			},
@@ -1065,23 +1065,23 @@ function update() {
 			} else {
 				var status = "OPEN";
 			}
-			var myFileList = document.getElementById('exampleInputFilecomp').files;
+			var files = $("#file_name input[name='audit_image_name[]']").map(function () {
+				return this.value.trim(); // $(this).val()
+			}).get().join(",");
 
+			files = files.replace(/\s/g, '')
+			// var myFileList = document.getElementById('exampleInputFilecomp').files;
 
+			// var myFile = myFileList[0];
+			if (!(files == null)) {
+				// var myFileName = myFile.name;
+				// var extension = getFileExtension(myFileName);
+				// function getFileExtension(filename) {
+				// 	return filename.split('.').pop();
+				// }
+				// uploadFile(myFile, uniquevar, extension);
 
-			var myFile = myFileList[0];
-			if (!(myFile == null)) {
-				var myFileName = myFile.name;
-				var extension = getFileExtension(myFileName);
-				function getFileExtension(filename) {
-					return filename.split('.').pop();
-				}
-				uploadFile(myFile, uniquevar, extension);
-
-
-
-
-				var dataStringro = { id: IDCOMP, updatecontent: updatecontent, updateuser: updateuser, status: status, FileName: uniquevar, extension: extension };
+				var dataStringro = { id: IDCOMP, updatecontent: updatecontent, updateuser: updateuser, status: status, FileName: files, extension: files };
 			} else {
 
 				var dataStringro = { id: IDCOMP, updatecontent: updatecontent, updateuser: updateuser, status: status, FileName: "", extension: "" };
@@ -1093,11 +1093,7 @@ function update() {
 				url: "../dbfiles/insertupdatecomp.php",
 				data: dataStringro,
 				cache: false,
-
-
 				success: function (html) {
-
-					console.log(html);
 					if (status == "CLOSED") {
 						$.ajax({
 							type: "POST",
@@ -1131,14 +1127,11 @@ function update() {
 						});
 					}
 					else {
-
 						$('html,body').animate({ scrollTop: 0 }, 500);
 						$("#submitting").hide();
 						$('#successmodel').show();
 						setTimeout(function () { location.reload(); }, 1001);
 					}
-
-
 				},
 				error: function (html) {
 					$('html').scrollTop(0);
@@ -1151,9 +1144,6 @@ function update() {
 					$('#verybadmodel').delay(3200).fadeIn(500);
 					$('#verybadmodel').delay(3000).fadeOut(500);
 				}
-
-
-
 			});
 		}
 		return false;

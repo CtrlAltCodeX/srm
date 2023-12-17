@@ -14,5 +14,5 @@ $extension = mysqli_real_escape_string($db, $_POST['extension']);
 $query = "update audit set LASTUPDATE=now(), CLOSEDRO='$status' WHERE AID='$id';
 				  
 		          INSERT INTO auditweeklyupdate(AID,UPDATEDATE,UPDATECONTENT,PERSON,STATUS,FILENAME,FILESIZE,FILETYPE,EXTENSION,ITEM,RISKOWNER)
-				  VALUES('$id',CURDATE(),'$updatecontent', '$updateuser','$status','$FileName.$extension', 'NOT NEEDED','NOT NEEDED','$extension','$audititemno','$ro')";
+				  VALUES('$id',CURDATE(),'$updatecontent', '$updateuser','$status','$FileName', 'NOT NEEDED','NOT NEEDED','$extension','$audititemno','$ro')";
 mysqli_multi_query($db, $query) or die(mysqli_error($db));

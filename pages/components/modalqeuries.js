@@ -1109,6 +1109,8 @@ $('#COMPMODALTWO').on('show.bs.modal', function (event) {
 	/* var ID = button.data('id')  */
 	
 	var modal = $(this)
+    $('.modal-content').removeAttr('id');
+    modal.find(".modal-content").attr('id', 'file_name');
 	modal.find('.modal-title').text('Update Details for ID : ' + ID)
 	  modal.find('.modal-body #IDCOMP').val(ID)
   
