@@ -633,9 +633,6 @@
 
 									}
 								});
-
-
-
 							},
 							error: function(htmltwo) {
 								console.log(htmltwo);
@@ -643,8 +640,6 @@
 
 							}
 						});
-
-
 					},
 
 
@@ -732,8 +727,6 @@
 						var hid = html[i].hid;
 						var recommendeda = html[i].recommendeda;
 
-
-
 						var tr_str = "<tr>" +
 							"<td style='font-weight:bold'>ID</td>" +
 							"<td >" + hazid + "</td>" + "</tr>" + "<tr>" +
@@ -746,6 +739,8 @@
 							"</tr>";
 
 						$("#hazardtable").append(tr_str);
+
+
 					}
 					var tr_strqw = "</tbody><tfoot><tr>" +
 						"<th>Item</th>" +
@@ -754,12 +749,6 @@
 						"</tr></tfoot><tbody>";
 
 					$("#hazardtable").append(tr_strqw);
-
-
-
-
-
-
 
 				},
 				error: function(html) {
@@ -805,10 +794,28 @@
 							"<td >" + updatedate + "</td>" +
 							"<td >" + updatecontent + "</td>" +
 							"<td >" + person + "</td>" +
-							"<td >" + link + "</td>" +
+							"<td id=file" + i + " class='links' files='" + link + "' style='cursor:pointer;'>Download</td>" +
 							"</tr>";
 
 						$("#updatetable").append(tr_str);
+
+						function downloadFile(url, filename) {
+							var anchor = $('<a>')
+								.attr('href', url)
+								.attr('download', filename)
+								.appendTo('body');
+							anchor[0].click();
+							anchor.remove();
+						}
+						
+						$('.links').each(function() {
+							$(this).on('click', function(event) {
+								var files = $(event.target).attr('files').split(',');
+								$.each(files, function(index, value) {
+									downloadFile('../uploads/' + value, value);
+								});
+							});
+						});
 					}
 					var tr_strqw = "</tbody><tfoot><tr>" +
 						"<th >ID</th>" +
