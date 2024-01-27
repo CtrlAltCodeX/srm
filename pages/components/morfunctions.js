@@ -1211,8 +1211,6 @@ function update() {
 				url: "../dbfiles/insertupdateaudit.php",
 				data: dataStringro,
 				cache: false,
-
-
 				success: function (html) {
 					console.log("hellos => " + html);
 
@@ -1256,10 +1254,10 @@ function update() {
 					}
 				},
 				error: function (html) {
-					$('html,body').animate({ scrollTop: 0 }, 500);
-					$("#submitting").hide();
-					$('#verybadmodel').show();
-					/* setTimeout(function(){location.reload();}, 1001);  */
+					 $('html,body').animate({ scrollTop: 0 }, 500);
+					 $("#submitting").hide();
+					 $('#verybadmodel').show();
+					 setTimeout(function(){location.reload();}, 1001);  
 				}
 			});
 		}

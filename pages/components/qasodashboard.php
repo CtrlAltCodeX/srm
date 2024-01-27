@@ -195,7 +195,7 @@
 				<tbody>
 					<?php
 					include '../../dbconfig.php';
-					$query = "SELECT DISTINCT(AID),AUDIT_TYPE, DATE, AUDIT_TYPE, AIRPORT, RISK_LEVEL, CRITERIA, EFFECT, CAUSE
+					$query = "SELECT DISTINCT(AID),AUDIT_TYPE, DATE, AUDIT_TYPE, AIRPORT, RISK_LEVEL, CRITERIA, EFFECT, CAUSE, 'STATUS'
 								FROM audit,recommendations  WHERE  audit.AID=recommendations.ID  AND audit.QASO='$pageuser' AND audit.CLOSEDRO='CLOSED' AND audit.STATUS='OPEN' GROUP BY AID";
 					mysqli_query($db, $query) or die(mysqli_error($db));
 					$result = mysqli_query($db, $query);
