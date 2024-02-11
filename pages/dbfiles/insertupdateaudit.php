@@ -7,7 +7,7 @@ $updatecontent = mysqli_real_escape_string($db, $_POST['updatecontent']);
 $audititemno = mysqli_real_escape_string($db, $_POST['audititemno']);
 $updateuser = mysqli_real_escape_string($db, $_POST['updateuser']);
 $status = mysqli_real_escape_string($db, $_POST['status']);
-$FileName = mysqli_real_escape_string($db, $_POST['FileName']);
+$FileName = mysqli_real_escape_string($db, $_POST['FileNameFileName']);
 
 $extension = mysqli_real_escape_string($db, $_POST['extension']);
 

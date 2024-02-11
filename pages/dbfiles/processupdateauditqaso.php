@@ -29,8 +29,6 @@ while ($row = mysqli_fetch_array($result)) {
 		$link = "No File ";
 	}
 
-
-
 	$return_arr[] = array(
 		"aid" => $aid,
 		"item" => $item,
@@ -40,8 +38,6 @@ while ($row = mysqli_fetch_array($result)) {
 		"link" => $link,
 	);
 }
-
-
 
 echo json_encode($return_arr);
  
