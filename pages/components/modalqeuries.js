@@ -1261,6 +1261,12 @@ $("#COMPMODALTWO").on("show.bs.modal", function (event) {
         var person = html[i].person;
         var link = html[i].link;
 
+        var text = "";
+        if (link) {
+          text = "Download";
+        } else {
+          text = "No File";
+        }
         var tr_str =
           "<tr>" +
           "<td >" +
@@ -1275,12 +1281,35 @@ $("#COMPMODALTWO").on("show.bs.modal", function (event) {
           "<td >" +
           person +
           "</td>" +
-          "<td >" +
+          "<td id=file" +
+          i +
+          " class='links' files='" +
           link +
+          "' style='cursor:pointer;'>" +
+          text +
           "</td>" +
           "</tr>";
 
         $("#updateupdatecomp").append(tr_str);
+
+        function downloadFile(url, filename) {
+          var anchor = $("<a>")
+            .attr("href", url)
+            .attr("download", filename)
+            .appendTo("body");
+          anchor[0].click();
+          anchor.remove();
+        }
+
+        $(".links").each(function () {
+          $(this).on("click", function (event) {
+            var files = $(event.target).attr("files").split(",");
+
+            $.each(files, function (index, value) {
+              downloadFile("../uploads/" + value, value);
+            });
+          });
+        });
       }
       var tr_strqw =
         "</tbody><tfoot><tr>" +

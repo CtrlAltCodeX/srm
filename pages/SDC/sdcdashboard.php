@@ -1842,7 +1842,6 @@ if (!isset($_SESSION['USER'])) {
 
 		$('#COMPMODALWA').on('show.bs.modal', function(event) {
 			/* if (event.relatedTarget === undefined) return; */
-
 			if (event.relatedTarget === undefined) return;
 			$('#updateupdatecomp').empty();
 			var button = $(event.relatedTarget) // Button that triggered the modal
@@ -1897,10 +1896,7 @@ if (!isset($_SESSION['USER'])) {
 				dataType: 'json',
 
 				success: function(html) {
-
-					console.log(html);
-					/* var title=html[0]; */
-
+					$("#updateupdatecompwa").empty();
 					var len = html.length;
 
 					var tr_strone = "<thead> <tr> " +
@@ -1918,10 +1914,45 @@ if (!isset($_SESSION['USER'])) {
 						var updatecontent = html[i].updatecontent;
 						var person = html[i].person;
 						var link = html[i].link;
-						var tr_str = "<tr>" + "<td >" + compid + "</td>" + "<td >" + updatedate + "</td>" + "<td >" + updatecontent + "</td>" + "<td >" + person + "</td>" + "<td >" + link + "</td>" + "</tr>";
+
+						var text = "";
+						if (link) {
+							text = "Download";
+						} else {
+							text = "No File";
+						}
+						var tr_str = "<tr>" + "<td >" + compid + "</td>" + "<td >" + updatedate + "</td>" + "<td >" + updatecontent + "</td>" + "<td >" + person + "</td>" + "<td id=file" +
+							i +
+							" class='links' files='" +
+							link +
+							"' style='cursor:pointer;'>" +
+							text +
+							"</td>" + "</tr>";
+
 						$("#updateupdatecompwa").append(tr_str);
+
+						function downloadFile(url, filename) {
+							var anchor = $("<a>")
+								.attr("href", url)
+								.attr("download", filename)
+								.appendTo("body");
+							anchor[0].click();
+							anchor.remove();
+						}
+
+						$(".links").each(function() {
+							$(this).on("click", function(event) {
+								var files = $(event.target).attr("files").split(",");
+
+								$.each(files, function(index, value) {
+									downloadFile("../uploads/" + value, value);
+								});
+							});
+						});
 					}
+
 					var tr_strqw = "</tbody><tfoot><tr>" + "<th >ID</th>" + "<th >Update Date</th>" + "<th>Update Content</th>" + "<th>Person</th>" + "<th>Evidence</th>" + "</tr></tfoot><tbody>";
+
 					$("#updateupdatecompwa").append(tr_strqw);
 				},
 				error: function(html) {

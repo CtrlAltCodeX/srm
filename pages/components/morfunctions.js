@@ -1074,12 +1074,6 @@ function update() {
 
 			// var myFile = myFileList[0];
 			if (!(files == null)) {
-				// var myFileName = myFile.name;
-				// var extension = getFileExtension(myFileName);
-				// function getFileExtension(filename) {
-				// 	return filename.split('.').pop();
-				// }
-				// uploadFile(myFile, uniquevar, extension);
 
 				var dataStringro = { id: IDCOMP, updatecontent: updatecontent, updateuser: updateuser, status: status, FileName: files, extension: files };
 			} else {

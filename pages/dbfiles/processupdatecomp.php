@@ -15,7 +15,7 @@ while ($row = mysqli_fetch_array($result)) {
 	$person = $row['PERSON'];
 	if ((!(($row['FILENAME']) == 'undefined')) && (!(empty($row['FILENAME']))) && (!(($row['FILENAME']) == 'undefinedundefined')) && (!(($row['FILENAME']) == '.'))) {
 
-		$link = "<a href=../uploads/" . $row['FILENAME'] . " download=" . $row['FILENAME'] . ">Download File</a>";
+		$link = $row['FILENAME'];
 	} else {
 		$link = "No File ";
 	}
